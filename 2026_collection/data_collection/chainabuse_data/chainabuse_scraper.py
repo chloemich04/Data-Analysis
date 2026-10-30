@@ -5,9 +5,11 @@ Collects publicly visible report *previews*, not necessarily full narratives.
 """
 
 import csv
+import os
 import json
 import re
 import time
+import random
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -16,6 +18,10 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    TimeoutException,
+    ElementClickInterceptedException
+)
 
 CATEGORY = "other-blackmail" # determines which Chainabuse category is being collected
 PAGE = 0 # determines which page will be examined
@@ -29,6 +35,19 @@ FIELDS = [
     "submitted_by", "time_reported", "reported_addresses_domains",
 ]
 
+CSV_FIELDS = [
+    "report_id",
+    "report_url",
+    "category",
+    "page_number",
+    "card_position",
+    "message_preview",
+    "full_message",
+    "message_length",
+    "collected_at_utc"
+]
+
+RAW_CSV = "chainabuse_raw_reports.csv"
 
 def parse_submission(text):
     """Split 'Submitted by Anonymous on Oct 15, 2026' when possible."""
@@ -127,7 +146,79 @@ def handle_cookie_banner(driver):
     
     except TimeoutException:
         print("No visible cookie banner detected.")
-        
+
+
+def load_existing_report_ids():
+    """
+    Load report IDs already saved in the raw CSV.
+    """
+
+    existing_ids = set()
+
+    if not os.path.exists(RAW_CSV):
+        return existing_ids
+
+    with open(RAW_CSV, "r", encoding="utf-8", newline="") as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            report_id = row.get("report_id")
+
+            if report_id:
+                existing_ids.add(report_id)
+
+    return existing_ids
+
+
+def save_report(report_data):
+    """
+    Append one report to the raw dataset.
+    """
+
+    file_exists = os.path.exists(RAW_CSV)
+
+    with open(RAW_CSV, "a", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(
+            file, fieldnames=CSV_FIELDS
+        )
+
+        if not file_exists or os.path.getsize(RAW_CSV) == 0:
+            writer.writeheader()
+
+        writer.writerow(report_data)
+
+
+def extract_full_report(driver, page_number, card_position, preview):
+    """
+    Extract a full report from its details page.
+    """
+
+    report_url = driver.current_url
+
+    report_id = report_url.split("/report/")[1].split("?")[0]
+
+    description = WebDriverWait(driver, 15).until(
+        EC.visibility_of_element_located((
+            By.CSS_SELECTOR,
+            ".create-ScamReportDetails__description"
+        ))
+    )
+
+    full_message = description.text.strip()
+
+    report_data = {
+        "report_id": report_id,
+        "report_url": report_url,
+        "category": "other-blackmail",
+        "page_number": page_number,
+        "card_position": card_position,
+        "message_preview": preview,
+        "full_message": full_message,
+        "message_length": len(full_message),
+        "collected_at_utc": datetime.now(timezone.utc).isoformat()
+    }
+
+    return report_data
 
 
 def inspect_full_report(driver):
@@ -213,6 +304,155 @@ def inspect_full_report(driver):
     print(report_data)
 
     return report_data
+
+
+def scrape_multiple_pages(driver, start_page=0, max_pages=3):
+    """
+    Scrape multiple Chainabuse category pages.
+
+    Pages are zero-indexed:
+    page=0 -> UI page 1
+    page=1 -> UI page 2
+    """
+
+    existing_ids = load_existing_report_ids()
+
+    print(f"\nPreviously collected reports: {len(existing_ids)}")
+
+    total_new_reports = 0
+
+    for page_number in range(start_page, start_page + max_pages):
+        category_url = (
+            f"https://chainabuse.com/category/other-blackmail?page={page_number}"
+        )
+
+        print(f"\n{'=' * 65}")
+        print(f"SCRAPING PAGE {page_number + 1}")
+        print(f"{'=' * 65}")
+
+        driver.get(category_url)
+
+        try:
+            handle_cookie_banner(driver)
+
+            cards = WebDriverWait(driver, 15).until(
+                EC.presence_of_all_elements_located((
+                    By.CSS_SELECTOR,
+                    ".create-ScamReportCard"
+                ))
+            )
+        except TimeoutException:
+            print(f"No report cards found on page {page_number + 1}.")
+            break
+
+        # Wait for client-side pagination to display the requested page.
+        WebDriverWait(driver, 15).until(
+            lambda d: any(
+                el.text.strip() == str(page_number + 1)
+                for el in d.find_elements(
+                    By.CSS_SELECTOR,
+                    ".create-ResultsSection__pagination button[aria-current='true']"
+                )
+            )
+        )
+        total_cards = len(driver.find_elements(By.CSS_SELECTOR, ".create-ScamReportCard"))
+
+        print(f"Found {total_cards} report cards.")
+
+        for index in range(total_cards):
+
+            print(f"\nProcessing report {index + 1}/{total_cards}")
+
+            try:
+                # Reload the listing page for each report
+                if "/report/" in driver.current_url:
+                    driver.get(category_url)
+
+                WebDriverWait(driver, 15).until(
+                    lambda d: any(
+                        el.text.strip() == str(page_number + 1)
+                        for el in d.find_elements(
+                            By.CSS_SELECTOR,
+                            ".create-ResultsSection__pagination button[aria-current='true']"
+                        )
+                    )
+                )
+                cards = driver.find_elements(By.CSS_SELECTOR, ".create-ScamReportCard")
+                card = cards[index]
+
+                preview_element = card.find_element(
+                    By.CSS_SELECTOR,
+                    ".create-ScamReportCard__preview-description"
+                )
+
+                preview = preview_element.text.strip()
+
+                clickable_area = card.find_element(
+                    By.CSS_SELECTOR,
+                    ".create-ScamReportCard__main"
+                )
+
+                driver.execute_script(
+                    "arguments[0].scrollIntoView({block: 'center'});",
+                    clickable_area
+                )
+
+                time.sleep(1)
+
+                try:
+                    clickable_area.click()
+                except ElementClickInterceptedException:
+                    print("Click intercepted. Checking cookie banner.")
+
+                    handle_cookie_banner(driver)
+
+                    clickable_area.click()
+
+                WebDriverWait(driver, 15).until(
+                    lambda d: "/report/" in d.current_url
+                )
+
+                report_id = (
+                    driver.current_url.split("/report/")[1].split("?")[0]
+                )
+
+                if report_id in existing_ids:
+                    print(f"Skipping duplicate: {report_id}")
+                    time.sleep(random.uniform(2, 4))
+                    continue
+
+                report_data = extract_full_report(
+                    driver,
+                    page_number,
+                    index + 1,
+                    preview
+                )
+
+                save_report(report_data)
+
+                existing_ids.add(report_id)
+
+                total_new_reports += 1
+
+                print(f"Saved report: {report_id}")
+                print(f"Message length: {report_data['message_length']}")
+
+                # Respectful delay between requests
+                time.sleep(random.uniform(2, 4))
+
+            except Exception as e:
+                print(f"Error processing report {index + 1}: {e}")
+                time.sleep(random.uniform(2, 4))
+                continue
+
+        print(f"\nFinished page {page_number + 1}.")
+
+    print("\n" + "=" * 65)
+    print("COLLECTION COMPLETE")
+    print("=" * 65)
+
+    print(f"New reports collected: {total_new_reports}")
+    print(f"Total unique reports saved: {len(existing_ids)}")
 
 
 def test_multiple_reports(driver, num_reports=10):
@@ -344,60 +584,7 @@ def main():
 
         #inspect_full_report(driver)
 
-        reports = test_multiple_reports(driver, num_reports=10)
-        import csv
-
-        with open(
-            "chainabuse_full_reports_test.csv",
-            "w",
-            newline="",
-            encoding="utf-8"
-        ) as file:
-
-            writer = csv.DictWriter(
-                file,
-                fieldnames=[
-                    "report_id",
-                    "report_url",
-                    "message",
-                    "message_length"
-                ]
-            )
-
-            writer.writeheader()
-            writer.writerows(reports)
-
-        print("Saved test results to chainabuse_full_reports_test.csv")
-        return
-
-        # Chainabuse uses zero-based URL pagination.
-        # The displayed page number starts at 1.
-        expected_ui_page = PAGE + 1
-
-        # Convert the selected page number to an integer
-        selected_page = int(selected_page)
-
-
-        if selected_page != expected_ui_page:
-            print(
-                f"WARNING: Expected UI page {expected_ui_page}, "
-                f"but found page {selected_page}. "
-                "Not saving."
-            )
-            return
-
-        print("Pagination verified successfully!")
-        if not rows:
-            print("No report cards found; no CSV written.")
-            return
-
-        # Overwrite on each run to keep this first test reproducible.
-        with OUTPUT.open("w", newline="", encoding="utf-8-sig") as file:
-            writer = csv.DictWriter(file, fieldnames=FIELDS)
-            writer.writeheader()
-            writer.writerows(rows)
-        print(f"Saved {len(rows)} rows to {OUTPUT.resolve()}")
-        print("First preview:", rows[0]["message_preview"][:200])
+        scrape_multiple_pages(driver, start_page=0,max_pages=3)
         
     except TimeoutException:
         print("Timed out waiting for report cards. Check page load, login, or site changes.")
