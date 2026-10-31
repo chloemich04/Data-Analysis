@@ -188,7 +188,7 @@ def save_report(report_data):
         writer.writerow(report_data)
 
 
-def extract_full_report(driver, page_number, card_position, preview):
+def extract_full_report(driver, page_number, card_position, preview, category):
     """
     Extract a full report from its details page.
     """
@@ -209,7 +209,7 @@ def extract_full_report(driver, page_number, card_position, preview):
     report_data = {
         "report_id": report_id,
         "report_url": report_url,
-        "category": "other-blackmail",
+        "category": category,
         "page_number": page_number,
         "card_position": card_position,
         "message_preview": preview,
@@ -306,7 +306,8 @@ def inspect_full_report(driver):
     return report_data
 
 
-def scrape_multiple_pages(driver, start_page=0, max_pages=3):
+def scrape_multiple_pages(driver, start_page=0,
+                          max_pages=3, category="other-blackmail", target_reports=None):
     """
     Scrape multiple Chainabuse category pages.
 
@@ -323,7 +324,7 @@ def scrape_multiple_pages(driver, start_page=0, max_pages=3):
 
     for page_number in range(start_page, start_page + max_pages):
         category_url = (
-            f"https://chainabuse.com/category/other-blackmail?page={page_number}"
+            f"https://chainabuse.com/category/{category}?page={page_number}"
         )
 
         print(f"\n{'=' * 65}")
@@ -425,7 +426,8 @@ def scrape_multiple_pages(driver, start_page=0, max_pages=3):
                     driver,
                     page_number,
                     index + 1,
-                    preview
+                    preview,
+                    category
                 )
 
                 save_report(report_data)
@@ -433,6 +435,9 @@ def scrape_multiple_pages(driver, start_page=0, max_pages=3):
                 existing_ids.add(report_id)
 
                 total_new_reports += 1
+                if target_reports is not None and total_new_reports >= target_reports:
+                    print(f"\nTarget reached: {total_new_reports} new reports.")
+                    return
 
                 print(f"Saved report: {report_id}")
                 print(f"Message length: {report_data['message_length']}")
@@ -563,33 +568,191 @@ def test_multiple_reports(driver, num_reports=10):
     return collected_reports
 
 
-def main():
+def main_menu():
+    while True:
+        print("\n" + "=" * 55)
+        print("CHAINABUSE DATA COLLECTOR".center(55))
+        print("=" * 55)
+
+        print("1. Start Data Collection\n2. View Collection Statistics\n3. View Available Categories\n" \
+        "4. Exit")
+
+        choice = input("\nSelect an option (1-4): ").strip()
+
+        if choice == "1":
+            print("\nStarting collection setup...")
+            #configure_collection()
+        elif choice == "2":
+            print("\nDisplaying statistics...")
+            # show_statistics
+        elif choice == "3":
+            print("\nDisplaying categories...")
+            # show_categories
+        elif choice == "4":
+            print("\nExiting Chainabuse Data Collector.")
+            break
+        else:
+            print("\nInvaild option. Please enter a number from 1 to 4.")
+
+        
+def get_positive_integer(prompt):
+    """ Ask for a positive whole number """
+    while True:
+        value = input(prompt).strip()
+
+        if value.isdigit() and int(value) > 0:
+            return int(value)
+
+        print("Please enter a positive whole number.")
+
+
+def select_category():
+    """ Select a verified Chainabuse category. """
+    categories = {
+        "1": ("Other Blackmail", "other-blackmail")
+    }
+
+    while True:
+        print("\n========== SELECT CATEGORY ==========")
+        print("1. Other Blackmail")
+        print("0. Return to Main Menu")
+
+        choice = input("Select category: ").strip()
+
+        if choice == "0":
+            return None
+
+        if choice in categories:
+            return categories[choice]
+
+        print("Invalid category selection.")
+
+
+def configure_collection():
+    """Build collection settings from user input. """
+    category = select_category()
+
+    if category is None:
+        return None
+
+    category_name, category_slug = category
+
+    print("\n========== COLLECTION METHOD ==========")
+    print("1. Single Page\n2. Page Range\n3. Specific Number of New Reports\n0. Return to Main Menu")
+
+    while True:
+        choice = input("Select method: ").strip()
+
+        if choice in ("0","1","2","3"):
+            break
+
+        print("Please select 0, 1, 2, or 3.")
+
+    if choice == "0":
+        return None
+
+    start_page = get_positive_integer("Starting page (1 = first page): ")
+
+    if choice == "1":
+        settings = {
+            "category": category_slug,
+            "start_page": start_page - 1,
+            "max_pages": 1,
+            "target_reports": None
+        }
+    elif choice == "2":
+        while True:
+            end_page = get_positive_integer("Ending page: ")
+
+            if end_page >= start_page:
+                break
+
+            print("Ending page must be at least the starting page.")
+
+        settings = {
+            "category": category_slug,
+            "start_page": start_page - 1,
+            "max_pages": end_page - start_page + 1,
+            "target_reports": None
+        }
+    else:
+        target = get_positive_integer(
+            "How many NEW reports should be collected?"
+        )
+
+        max_pages = get_positive_integer(
+            "Maximum pages to search (safety limit): "
+        )
+
+        settings = {
+            "category": category_slug,
+            "start_page": start_page - 1,
+            "max_pages": max_pages,
+            "target_reports": target
+        }
+
+    print("\n========== CONFIRM COLLECTION ==========")
+    print(f"Category: {category_name}")
+    print(f"Starting page: {start_page}")
+    print(f"Maximum pages: {settings['max_pages']}")
+
+    if settings["target_reports"] is not None:
+        print(f"Target new reports: {settings['target_reports']}")
+
+    confirmation = input("Start collection? [Y/N]: ").strip().lower()
+
+    return settings if confirmation == "y" else None
+
+
+def run_collection(settings):
     options = webdriver.ChromeOptions()
+
     if HEADLESS:
         options.add_argument("--headless=new")
-    # Modern Selenium manages ChromeDriver automatically.
+
     driver = webdriver.Chrome(options=options)
+
     try:
-        url = f"{BASE_URL}?page={PAGE}"
-        print(f"Opening {url}")
-        driver.get(url)
-        WebDriverWait(driver, 25).until(
-            lambda d: len(d.find_elements(By.CSS_SELECTOR, ".create-ScamReportCard")) > 0
+        scrape_multiple_pages(
+            driver,
+            start_page=settings["start_page"],
+            max_pages=settings["max_pages"],
+            category=settings["category"],
+            target_reports=settings["target_reports"]
         )
-        # Give client-side pagination a brief chance to settle.
-        time.sleep(2)
-        rows, selected_page = extract_cards(driver)
-        print(f"Requested page: {PAGE}; UI selected page: {selected_page}")
-        print(f"Report cards found: {len(rows)}")
-
-        #inspect_full_report(driver)
-
-        scrape_multiple_pages(driver, start_page=0,max_pages=3)
-        
-    except TimeoutException:
-        print("Timed out waiting for report cards. Check page load, login, or site changes.")
     finally:
         driver.quit()
+
+
+def main():
+    while True:
+        print("\n" + "=" * 55)
+        print("CHAINABUSE DATA COLLECTOR".center(55))
+        print("=" * 55)
+
+        print("1. Start Data Collection\n2. View Available Categories\n3. Exit")
+
+        choice = input("\nSelect an option (1-3): ").strip()
+
+        if choice == "1":
+            settings = configure_collection()
+
+            if settings is not None:
+                try:
+                    run_collection(settings)
+                except KeyboardInterrupt:
+                    print("\nCollection interrupted by user")
+                except Exception as error:
+                    print(f"\nCollection error: {error}")
+        elif choice == "2":
+            print("\nCurrently supported categories: ")
+            print("1. Other Blackmail")
+            print("\nAdditional categories will be added after verification.")
+        elif choice == "3":
+            print("\nExiting Chainabuse Data Collector.")
+            break
+        else:
+            print("\nInvaild selection. Please try again.")
 
 
 if __name__ == "__main__":
