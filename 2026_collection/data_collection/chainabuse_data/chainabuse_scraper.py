@@ -10,6 +10,7 @@ import json
 import re
 import time
 import random
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -47,7 +48,25 @@ CSV_FIELDS = [
     "collected_at_utc"
 ]
 
-RAW_CSV = "chainabuse_raw_reports.csv"
+DATASET_DIR = Path("datasets")
+RAW_DIR = DATASET_DIR / "raw"
+LOG_DIR = DATASET_DIR / "logs"
+
+FAILURE_CSV = LOG_DIR / "chainabuse_failures.csv"
+
+FAILURE_FIELDS = [
+    "category", "page_number", "card_position", "source_url",
+    "error_type", "error_message", "failed_at_utc"
+]
+
+def setup_directories():
+    """Ensure that the necessary directories exist."""
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+def get_raw_csv(category):
+    """Return the path to the raw CSV file for a given category."""
+    return RAW_DIR / f"chainabuse_{category.replace('-', '_')}.csv"
 
 def parse_submission(text):
     """Split 'Submitted by Anonymous on Oct 15, 2026' when possible."""
@@ -148,21 +167,22 @@ def handle_cookie_banner(driver):
         print("No visible cookie banner detected.")
 
 
-def load_existing_report_ids():
+def load_existing_report_ids(category):
     """
     Load report IDs already saved in the raw CSV.
     """
 
     existing_ids = set()
+    output_file = get_raw_csv(category)
 
-    if not os.path.exists(RAW_CSV):
+    if not output_file.exists():
         return existing_ids
 
-    with open(RAW_CSV, "r", encoding="utf-8", newline="") as file:
+    with output_file.open("r", encoding="utf-8", newline="") as file:
         reader = csv.DictReader(file)
 
         for row in reader:
-            report_id = row.get("report_id")
+            report_id = row.get("report_id", "").strip()
 
             if report_id:
                 existing_ids.add(report_id)
@@ -175,17 +195,55 @@ def save_report(report_data):
     Append one report to the raw dataset.
     """
 
-    file_exists = os.path.exists(RAW_CSV)
+    category = report_data["category"]
+    output_file = get_raw_csv(category)
 
-    with open(RAW_CSV, "a", newline="", encoding="utf-8") as file:
-        writer = csv.DictWriter(
-            file, fieldnames=CSV_FIELDS
-        )
+    write_header = (
+        not output_file.exists()
+        or output_file.stat().st_size == 0
+    )
 
-        if not file_exists or os.path.getsize(RAW_CSV) == 0:
+    with output_file.open("a", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=CSV_FIELDS)
+
+        if write_header:
             writer.writeheader()
 
         writer.writerow(report_data)
+
+
+def log_failure(category, page_number, card_position, source_url, error):
+    """
+    Record a failed report extraction without stopping collection.
+    """
+
+    write_header = (
+        not FAILURE_CSV.exists()
+        or FAILURE_CSV.stat().st_size == 0
+    )
+
+    failure_data = {
+        "category": category,
+        "page_number": page_number,
+        "card_position": card_position,
+        "source_url": source_url,
+        "error_type": type(error).__name__,
+        "error_message": str(error),
+        "failed_at_utc": datetime.now(timezone.utc).isoformat()
+    }
+
+    with FAILURE_CSV.open("a", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=FAILURE_FIELDS)
+
+        if write_header:
+            writer.writerheader()
+
+        writer.writerow(failure_data)
+
+    print(
+        f"Failure logged: page {page_number + 1}, "
+        f"report {card_position}"
+    )
 
 
 def extract_full_report(driver, page_number, card_position, preview, category):
@@ -316,7 +374,12 @@ def scrape_multiple_pages(driver, start_page=0,
     page=1 -> UI page 2
     """
 
-    existing_ids = load_existing_report_ids()
+    setup_directories()
+
+    existing_ids = load_existing_report_ids(category)
+
+    total_failures = 0
+    total_duplicates = 0
 
     print(f"\nPreviously collected reports: {len(existing_ids)}")
 
@@ -359,6 +422,8 @@ def scrape_multiple_pages(driver, start_page=0,
         total_cards = len(driver.find_elements(By.CSS_SELECTOR, ".create-ScamReportCard"))
 
         print(f"Found {total_cards} report cards.")
+
+        target_reached = False
 
         for index in range(total_cards):
 
@@ -418,6 +483,7 @@ def scrape_multiple_pages(driver, start_page=0,
                 )
 
                 if report_id in existing_ids:
+                    total_duplicates += 1
                     print(f"Skipping duplicate: {report_id}")
                     time.sleep(random.uniform(2, 4))
                     continue
@@ -435,8 +501,14 @@ def scrape_multiple_pages(driver, start_page=0,
                 existing_ids.add(report_id)
 
                 total_new_reports += 1
-                if target_reports is not None and total_new_reports >= target_reports:
-                    print(f"\nTarget reached: {total_new_reports} new reports.")
+
+                target_reached = (
+                    target_reports is not None
+                    and total_new_reports >= target_reports
+                )
+
+                if target_reached:
+                    print(f"\nTarget of {target_reports} new reports reached.")
                     return
 
                 print(f"Saved report: {report_id}")
@@ -446,8 +518,18 @@ def scrape_multiple_pages(driver, start_page=0,
                 time.sleep(random.uniform(2, 4))
 
             except Exception as e:
+                total_failures += 1
+
                 print(f"Error processing report {index + 1}: {e}")
-                time.sleep(random.uniform(2, 4))
+
+                log_failure(
+                    category=category,
+                    page_number=page_number,
+                    card_position=index + 1,
+                    source_url=driver.current_url,
+                    error=e
+                )
+
                 continue
 
         print(f"\nFinished page {page_number + 1}.")
@@ -456,9 +538,15 @@ def scrape_multiple_pages(driver, start_page=0,
     print("COLLECTION COMPLETE")
     print("=" * 65)
 
+    print(f"Category: {category}")
     print(f"New reports collected: {total_new_reports}")
     print(f"Total unique reports saved: {len(existing_ids)}")
+    print(f"Total duplicates skipped: {total_duplicates}")
+    print(f"Total failures logged: {total_failures}")
 
+    print(f"\nRaw data saved to: {get_raw_csv(category)}")
+    print(f"Failure log saved to: {FAILURE_CSV}")
+    print("=" * 65)
 
 def test_multiple_reports(driver, num_reports=10):
     """
