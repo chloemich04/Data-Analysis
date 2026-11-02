@@ -70,6 +70,12 @@
       "next_page": 32,
       "last_fingerprint": "17e5dde4780aeffa2ba44dc41e478d43b8a76d123ba1ed34de6188027458ee10",
       "updated_at_utc": "2026-11-02T04:35:34.561454+00:00"
+    },
+    "romance": {
+      "pending_reports": {},
+      "next_page": 53,
+      "last_fingerprint": "bebd787364c8da1729baee8c3e94efc6a2116d95adfff81b8560a2352a2253e7",
+      "updated_at_utc": "2026-11-02T06:04:01.851045+00:00"
     }
   }
 }
