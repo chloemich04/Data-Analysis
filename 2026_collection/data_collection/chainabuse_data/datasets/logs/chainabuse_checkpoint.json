@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "categories": {
+    "ransomware": {
+      "pending_reports": {
+        "636e08f3-72b3-4a55-be92-2b46fa4c5168": {
+          "url": "https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168",
+          "position": 9,
+          "preview": "",
+          "page": 0,
+          "attempts": 3,
+          "error_type": "ValueError",
+          "error": "Empty full description; preview not substituted",
+          "failed_at_utc": "2026-11-02T16:01:37.224983+00:00"
+        }
+      },
+      "next_page": 39,
+      "last_fingerprint": "25ba8af98a7098d965a43e100e5acb577986bd41283e3ada2ea9e5c15dcfa70a",
+      "updated_at_utc": "2026-11-02T16:18:05.252392+00:00"
+    },
+    "other-investment-scam": {
+      "pending_reports": {},
+      "next_page": 45,
+      "last_fingerprint": "ffbee84a83aec4fc205c89df9ea897bdaf9e53083c1f8df331adcef5b2b11a95",
+      "updated_at_utc": "2026-11-02T17:10:01.067468+00:00"
+    }
+  }
+}
