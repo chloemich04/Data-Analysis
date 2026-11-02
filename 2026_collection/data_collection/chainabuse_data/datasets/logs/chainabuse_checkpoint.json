@@ -23,6 +23,12 @@
       "next_page": 45,
       "last_fingerprint": "ffbee84a83aec4fc205c89df9ea897bdaf9e53083c1f8df331adcef5b2b11a95",
       "updated_at_utc": "2026-11-02T17:10:01.067468+00:00"
+    },
+    "impersonation": {
+      "pending_reports": {},
+      "next_page": 23,
+      "last_fingerprint": "829d49fe7cfecc47496e432c93d24d26be4f75242cbf3d4d1cb5310307487dca",
+      "updated_at_utc": "2026-11-02T18:02:02.324331+00:00"
     }
   }
 }
