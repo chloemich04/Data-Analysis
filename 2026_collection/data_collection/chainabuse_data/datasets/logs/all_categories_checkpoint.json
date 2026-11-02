@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "categories": {
+    "other-blackmail": {
+      "next_page": 27,
+      "last_fingerprint": "7622cbd962d71bb5eece4d473dbd1f0de7b461c6b0b1825373d554ebfe712435",
+      "updated_at_utc": "2026-11-01T21:29:30.438283+00:00"
+    },
+    "sextortion": {
+      "next_page": 29,
+      "last_fingerprint": "66c1020eb95796e28e7c7c04f082c46fdd5b2d0b46a0eebc0d4917e69d1f2adb",
+      "updated_at_utc": "2026-11-01T22:42:30.275126+00:00"
+    },
+    "impersonation": {
+      "next_page": 10,
+      "last_fingerprint": "584efa0222a66abd4d00147a4891cb5b383d759be4282ee73f7ee4947b5e9beb",
+      "updated_at_utc": "2026-11-01T23:20:53.175088+00:00"
+    }
+  }
+}

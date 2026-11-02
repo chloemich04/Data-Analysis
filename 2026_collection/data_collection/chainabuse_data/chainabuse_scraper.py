@@ -3,7 +3,7 @@
 Based on the original Selenium scraper, with card-scoped extraction.
 Collects publicly visible report *previews*, not necessarily full narratives.
 """
-
+'''
 import csv
 import os
 import json
@@ -236,7 +236,7 @@ def log_failure(category, page_number, card_position, source_url, error):
         writer = csv.DictWriter(file, fieldnames=FAILURE_FIELDS)
 
         if write_header:
-            writer.writerheader()
+            writer.writeheader()
 
         writer.writerow(failure_data)
 
@@ -845,3 +845,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''
+    
