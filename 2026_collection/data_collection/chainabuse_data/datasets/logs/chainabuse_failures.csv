@@ -1,0 +1,264 @@
+category,page_number,card_position,source_url,error_type,error_message,failed_at_utc
+,,,,ElementClickInterceptedException,"Message: element click intercepted: Element is not clickable at point (352, 1225)
+  (Session info: chrome=156.0.8078.80); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7922fbe65]
+	(No symbol) [0x7ff7922035f0]
+	(No symbol) [0x7ff7920726d3]
+	(No symbol) [0x7ff7928837d2]
+	(No symbol) [0x7ff792881df3]
+	(No symbol) [0x7ff79287fd47]
+	(No symbol) [0x7ff79287f4ce]
+	(No symbol) [0x7ff7928740fa]
+	(No symbol) [0x7ff7928907da]
+	(No symbol) [0x7ff792873b39]
+	(No symbol) [0x7ff792873ad0]
+	(No symbol) [0x7ff7920a6661]
+	(No symbol) [0x7ff79208b969]
+	(No symbol) [0x7ff79208cca3]
+	(No symbol) [0x7ff792775af1]
+	(No symbol) [0x7ff7927967f7]
+	(No symbol) [0x7ff79278ce20]
+	(No symbol) [0x7ff79241ff8e]
+	(No symbol) [0x7ff792212865]
+	(No symbol) [0x7ff79220d1d4]
+	(No symbol) [0x7ff79220d364]
+	(No symbol) [0x7ff7921f644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-01T18:37:23.949525+00:00
+,,,,JSONDecodeError,Expecting value: line 1 column 1 (char 0),2026-11-01T19:45:28.544716+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-01T20:04:12.773866+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-01T20:06:57.381715+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-01T20:08:54.345946+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-01T20:46:27.845187+00:00
+other-blackmail,27,15,https://chainabuse.com/report/91e8b354-d2a3-4c3e-a3ea-d59dd9e8cf89,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7922fbe65]
+	(No symbol) [0x7ff7922035f0]
+	(No symbol) [0x7ff7920726d3]
+	(No symbol) [0x7ff79287d8e1]
+	(No symbol) [0x7ff79287db3c]
+	(No symbol) [0x7ff7928abbb7]
+	(No symbol) [0x7ff7920a6661]
+	(No symbol) [0x7ff79208b969]
+	(No symbol) [0x7ff79208cca3]
+	(No symbol) [0x7ff792775af1]
+	(No symbol) [0x7ff7927967f7]
+	(No symbol) [0x7ff79278ce20]
+	(No symbol) [0x7ff79241ff8e]
+	(No symbol) [0x7ff792212865]
+	(No symbol) [0x7ff79220d1d4]
+	(No symbol) [0x7ff79220d364]
+	(No symbol) [0x7ff7921f644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-01T21:30:46.291283+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-01T22:23:30.301159+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-01T22:33:53.721272+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-01T22:44:38.114290+00:00
+ransomware,0,9,https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168,ValueError,Empty full description; preview not substituted,2026-11-01T22:51:38.549599+00:00
+ransomware,0,9,https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168,ValueError,Empty full description; preview not substituted,2026-11-01T22:53:52.324471+00:00
+ransomware,0,9,https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168,ValueError,Empty full description; preview not substituted,2026-11-01T22:55:19.254726+00:00
+ransomware,0,9,https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168,ValueError,Empty full description; preview not substituted,2026-11-01T22:57:02.443118+00:00
+impersonation,10,4,https://chainabuse.com/report/efdb574f-bf55-4441-b3bd-3456279a6cbe,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-01T23:21:44.172384+00:00
+impersonation,18,1,https://chainabuse.com/report/6b71fbd8-07f6-4217-9c74-01aba03b3420,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-02T01:39:54.239573+00:00
+impersonation,28,11,https://chainabuse.com/report/95441ea0-3b02-469a-80cd-a33165829ef5,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-02T02:04:44.098007+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-02T02:17:16.704145+00:00
+ransomware,0,9,https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168,ValueError,Empty full description; preview not substituted,2026-11-02T02:25:55.421726+00:00
+ransomware,0,9,https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168,ValueError,Empty full description; preview not substituted,2026-11-02T02:26:26.891323+00:00
+ransomware,24,14,https://chainabuse.com/report/4d2bd463-5d79-43d3-8626-99aa84a8d0ce,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-02T03:18:10.861581+00:00
+ransomware,25,2,https://chainabuse.com/report/0dd0a9b6-d318-4033-8fd5-635272a89cd0,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-02T03:18:56.266238+00:00
+ransomware,25,6,https://chainabuse.com/report/c0bd52c5-c206-44da-9bce-1d0a39d1406e,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-02T03:19:46.732017+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-02T03:20:20.155268+00:00
+other-investment-scam,7,6,https://chainabuse.com/report/2204554a-81c1-4ad6-9b52-f29c1dfe6171,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-02T03:39:31.973412+00:00
+other-investment-scam,32,3,https://chainabuse.com/report/c2c7c542-0c27-479a-8160-804576554612,TimeoutException,"Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	(No symbol) [0x7ff7e7a2be65]
+	(No symbol) [0x7ff7e79335f0]
+	(No symbol) [0x7ff7e77a26d3]
+	(No symbol) [0x7ff7e7fad8e1]
+	(No symbol) [0x7ff7e7fadb3c]
+	(No symbol) [0x7ff7e7fdbbb7]
+	(No symbol) [0x7ff7e77d6661]
+	(No symbol) [0x7ff7e77bb969]
+	(No symbol) [0x7ff7e77bcca3]
+	(No symbol) [0x7ff7e7ea5af1]
+	(No symbol) [0x7ff7e7ec67f7]
+	(No symbol) [0x7ff7e7ebce20]
+	(No symbol) [0x7ff7e7b4ff8e]
+	(No symbol) [0x7ff7e7942865]
+	(No symbol) [0x7ff7e793d1d4]
+	(No symbol) [0x7ff7e793d364]
+	(No symbol) [0x7ff7e792644c]
+	(No symbol) [0x7ff92b547124]
+	(No symbol) [0x7ff92babcc91]
+",2026-11-02T04:36:15.465373+00:00
+,,,,TimeoutException,"Message: 
+",2026-11-02T04:36:41.914474+00:00

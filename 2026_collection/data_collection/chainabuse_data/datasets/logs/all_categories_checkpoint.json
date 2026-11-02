@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "categories": {
+    "other-blackmail": {
+      "next_page": 27,
+      "last_fingerprint": "7622cbd962d71bb5eece4d473dbd1f0de7b461c6b0b1825373d554ebfe712435",
+      "updated_at_utc": "2026-11-01T21:29:30.438283+00:00"
+    },
+    "sextortion": {
+      "next_page": 29,
+      "last_fingerprint": "66c1020eb95796e28e7c7c04f082c46fdd5b2d0b46a0eebc0d4917e69d1f2adb",
+      "updated_at_utc": "2026-11-01T22:42:30.275126+00:00"
+    },
+    "impersonation": {
+      "next_page": 34,
+      "last_fingerprint": "5508b1ce98b3b3bb69463745ad892902e4987518e4b91d56e6fcb4b0a0165629",
+      "updated_at_utc": "2026-11-02T02:16:41.965648+00:00",
+      "pending_reports": {}
+    },
+    "ransomware": {
+      "pending_reports": {
+        "636e08f3-72b3-4a55-be92-2b46fa4c5168": {
+          "url": "https://chainabuse.com/report/636e08f3-72b3-4a55-be92-2b46fa4c5168",
+          "position": 9,
+          "preview": "",
+          "page": 0,
+          "attempts": 2,
+          "error_type": "ValueError",
+          "error": "Empty full description; preview not substituted",
+          "failed_at_utc": "2026-11-02T02:26:26.891801+00:00"
+        },
+        "0dd0a9b6-d318-4033-8fd5-635272a89cd0": {
+          "url": "https://chainabuse.com/report/0dd0a9b6-d318-4033-8fd5-635272a89cd0",
+          "position": 2,
+          "preview": "claimed they used Pegasus on my devices and would share my \"dirty obsession\" (???) if I did not pay them $1400 within 48 hours",
+          "page": 25,
+          "attempts": 1,
+          "error_type": "TimeoutException",
+          "error": "Message: \nStacktrace:\nSymbols not available. Dumping unresolved backtrace:\n\t(No symbol) [0x7ff7e7a2be65]\n\t(No symbol) [0x7ff7e79335f0]\n\t(No symbol) [0x7ff7e77a26d3]\n\t(No symbol) [0x7ff7e7fad8e1]\n\t(No symbol) [0x7ff7e7fadb3c]\n\t(No symbol) [0x7ff7e7fdbbb7]\n\t(No symbol) [0x7ff7e77d6661]\n\t(No symbol) [0x7ff7e77bb969]\n\t(No symbol) [0x7ff7e77bcca3]\n\t(No symbol) [0x7ff7e7ea5af1]\n\t(No symbol) [0x7ff7e7ec67f7]\n\t(No symbol) [0x7ff7e7ebce20]\n\t(No symbol) [0x7ff7e7b4ff8e]\n\t(No symbol) [0x7ff7e7942865]\n\t(No symbol) [0x7ff7e793d1d4]\n\t(No symbol) [0x7ff7e793d364]\n\t(No symbol) [0x7ff7e792644c]\n\t(No symbol) [0x7ff92b547124]\n\t(No symbol) [0x7ff92babcc91]\n",
+          "failed_at_utc": "2026-11-02T03:18:56.266751+00:00"
+        },
+        "c0bd52c5-c206-44da-9bce-1d0a39d1406e": {
+          "url": "https://chainabuse.com/report/c0bd52c5-c206-44da-9bce-1d0a39d1406e",
+          "position": 6,
+          "preview": "rug pull scam/ then turned into a blackmail",
+          "page": 25,
+          "attempts": 1,
+          "error_type": "TimeoutException",
+          "error": "Message: \nStacktrace:\nSymbols not available. Dumping unresolved backtrace:\n\t(No symbol) [0x7ff7e7a2be65]\n\t(No symbol) [0x7ff7e79335f0]\n\t(No symbol) [0x7ff7e77a26d3]\n\t(No symbol) [0x7ff7e7fad8e1]\n\t(No symbol) [0x7ff7e7fadb3c]\n\t(No symbol) [0x7ff7e7fdbbb7]\n\t(No symbol) [0x7ff7e77d6661]\n\t(No symbol) [0x7ff7e77bb969]\n\t(No symbol) [0x7ff7e77bcca3]\n\t(No symbol) [0x7ff7e7ea5af1]\n\t(No symbol) [0x7ff7e7ec67f7]\n\t(No symbol) [0x7ff7e7ebce20]\n\t(No symbol) [0x7ff7e7b4ff8e]\n\t(No symbol) [0x7ff7e7942865]\n\t(No symbol) [0x7ff7e793d1d4]\n\t(No symbol) [0x7ff7e793d364]\n\t(No symbol) [0x7ff7e792644c]\n\t(No symbol) [0x7ff92b547124]\n\t(No symbol) [0x7ff92babcc91]\n",
+          "failed_at_utc": "2026-11-02T03:19:46.732470+00:00"
+        }
+      },
+      "next_page": 25,
+      "last_fingerprint": "e5f981f5013a934280e87349f1d19810804016188db5728064faf989b453d675",
+      "updated_at_utc": "2026-11-02T03:18:21.719533+00:00"
+    },
+    "other-investment-scam": {
+      "pending_reports": {
+        "c2c7c542-0c27-479a-8160-804576554612": {
+          "url": "https://chainabuse.com/report/c2c7c542-0c27-479a-8160-804576554612",
+          "position": 3,
+          "preview": "Data submited by Intelligence for good",
+          "page": 32,
+          "attempts": 1,
+          "error_type": "TimeoutException",
+          "error": "Message: \nStacktrace:\nSymbols not available. Dumping unresolved backtrace:\n\t(No symbol) [0x7ff7e7a2be65]\n\t(No symbol) [0x7ff7e79335f0]\n\t(No symbol) [0x7ff7e77a26d3]\n\t(No symbol) [0x7ff7e7fad8e1]\n\t(No symbol) [0x7ff7e7fadb3c]\n\t(No symbol) [0x7ff7e7fdbbb7]\n\t(No symbol) [0x7ff7e77d6661]\n\t(No symbol) [0x7ff7e77bb969]\n\t(No symbol) [0x7ff7e77bcca3]\n\t(No symbol) [0x7ff7e7ea5af1]\n\t(No symbol) [0x7ff7e7ec67f7]\n\t(No symbol) [0x7ff7e7ebce20]\n\t(No symbol) [0x7ff7e7b4ff8e]\n\t(No symbol) [0x7ff7e7942865]\n\t(No symbol) [0x7ff7e793d1d4]\n\t(No symbol) [0x7ff7e793d364]\n\t(No symbol) [0x7ff7e792644c]\n\t(No symbol) [0x7ff92b547124]\n\t(No symbol) [0x7ff92babcc91]\n",
+          "failed_at_utc": "2026-11-02T04:36:15.466357+00:00"
+        }
+      },
+      "next_page": 32,
+      "last_fingerprint": "17e5dde4780aeffa2ba44dc41e478d43b8a76d123ba1ed34de6188027458ee10",
+      "updated_at_utc": "2026-11-02T04:35:34.561454+00:00"
+    }
+  }
+}
