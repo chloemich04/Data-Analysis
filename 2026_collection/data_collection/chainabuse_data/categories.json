@@ -1,11 +1,12 @@
 {
   "categories": [
-    "romance",
-    "other-investment-scam", 
-    "ransomware",
     "impersonation",
+    "ransomware",
+    "other-investment-scam", 
+    "romance",
     "other-blackmail",
     "sextortion"
+    
     
   ]
 }
