@@ -1,2 +1,0 @@
-source_file,source_record,source_start_line,source_end_line,original_field_count,reconstructed_report_count,first_report_id,second_report_id,action,details
-chainabuse_ransomware.csv,14,95,105,17,2,6163bed2-18c6-4310-97ec-70a117353920,3e928e4a-0689-407d-af64-47b391314dc4,split_joined_records,"Separated the first collection timestamp from the second report UUID. Validated timestamp format, UUID format, and second report URL. Reconstructed two nine-field records before applying exclusions."
